@@ -1,0 +1,28 @@
+﻿{% extends "admin/layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>All Boards</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Identifier</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for board in boards %}
+        <tr>
+            <td>{{ board.name }}</td>
+            <td>{{ board.identifier }}</td>
+            <td>
+                <a href="{{ url_for('admin.edit_board', board_id=board.id) }}">✏️ Edit</a> |
+                <a href="{{ url_for('display.show_board', identifier=board.identifier) }}" target="_blank">👁️ View</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

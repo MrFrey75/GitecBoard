@@ -1,0 +1,16 @@
+﻿{% extends "admin/layout.html" %}
+
+{% block title %}Edit Board{% endblock %}
+
+{% block content %}
+<h2>Edit Board</h2>
+<form method="POST" action="{{ url_for('admin.update_board', board_id=board.id) }}">
+    <label for="name">Board Name</label><br>
+    <input type="text" id="name" name="name" value="{{ board.name }}" required><br><br>
+
+    <label for="identifier">Board Identifier</label><br>
+    <input type="text" id="identifier" name="identifier" value="{{ board.identifier }}" required><br><br>
+
+    <button type="submit">Update</button>
+</form>
+{% endblock %}
