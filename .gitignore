@@ -1,0 +1,70 @@
+﻿# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+.venv/
+env/
+ENV/
+venv/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# SQLite database
+*.db
+*.sqlite3
+
+# Flask stuff
+instance/
+.webassets-cache
+
+# Static asset cache
+*.log
+*.pot
+*.mo
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# macOS/Linux cruft
+.DS_Store
+Thumbs.db
+
+# PyCharm specific
+*.iml
+*.ipr
+*.iws
+
+# Logs
+*.log
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/

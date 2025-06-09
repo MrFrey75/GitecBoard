@@ -1,0 +1,92 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h1>📌 {{ board.identifier }}</h1>
+
+<div id="clock" class="clock">
+  <div id="clock-time">--:--:--</div>
+  <div id="clock-date">Loading date…</div>
+</div>
+
+<div id="carousel">
+  {% for assignment in board.page_assignments|sort(attribute='order') %}
+    <div class="page transition-{{ assignment.transition_type }}">
+      <h2>{{ assignment.page.name }}</h2>
+      <div class="sections">
+        {% for sa in assignment.page.section_assignments|sort(attribute='order') %}
+          <div class="section section-{{ sa.section.type }}">
+            {% if sa.section.type == 'image' %}
+              <img src="{{ sa.section.content }}" alt="Image" style="max-width: 100%; border-radius: 10px;" />
+
+            {% elif sa.section.type == 'youtube' %}
+              <div class="video-wrapper">
+                <iframe
+                  width="100%" height="315"
+                  src="https://www.youtube.com/embed/{{ sa.section.content }}"
+                  frameborder="0"
+                  allowfullscreen></iframe>
+              </div>
+
+            {% elif sa.section.type == 'markdown' %}
+              {{ sa.section.content | markdown | safe }}
+
+            {% elif sa.section.type == 'html' %}
+              {{ sa.section.content | safe }}
+
+            {% else %}
+              {{ sa.section.content }}
+            {% endif %}
+          </div>
+
+          {% if not loop.last %}
+            <hr class="section-divider">
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  const pages = document.querySelectorAll(".page");
+  let index = 0;
+
+  function showPage(i) {
+    pages.forEach((page, idx) => {
+      page.classList.remove("active");
+    });
+    pages[i].classList.add("active");
+  }
+
+  function rotatePages() {
+    index = (index + 1) % pages.length;
+    showPage(index);
+  }
+
+  function updateClock() {
+    const now = new Date();
+
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const months = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    const dayName = days[now.getDay()];
+    const monthName = months[now.getMonth()];
+    const date = now.getDate();
+    const year = now.getFullYear();
+
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+
+    document.getElementById("clock-time").textContent = `${hh}:${mm}:${ss}`;
+    document.getElementById("clock-date").textContent = `${dayName}, ${monthName} ${date}, ${year}`;
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+  showPage(index);
+  setInterval(rotatePages, 8000);
+</script>
+{% endblock %}
