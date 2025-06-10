@@ -3,11 +3,14 @@
 from app.main import db
 
 class Page(db.Model):
+    __tablename__ = 'page'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     start_time = db.Column(db.DateTime, nullable=True)
     end_time = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+    is_published = db.Column(db.Boolean, default=False)
+    is_deleted = db.Column(db.Boolean, default=False)
 
     # Add this to fix the error
     page_assignments = db.relationship(

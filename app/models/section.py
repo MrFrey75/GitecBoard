@@ -11,6 +11,7 @@ class Section(db.Model):
     start_time = db.Column(db.DateTime, nullable=True)
     end_time = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+    is_deleted = db.Column(db.Boolean, default=False)
 
     section_assignments = db.relationship('SectionAssignment', back_populates='section', cascade='all, delete-orphan')
 

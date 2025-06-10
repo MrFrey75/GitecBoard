@@ -3,45 +3,78 @@ from app.main import create_app, db
 from app.models.board import Board, PageAssignment
 from app.models.page import Page
 from app.models.section import Section, SectionAssignment
-from app.models.admin import AdminUser
+from app.models.admin import AdminUser, AppSetting
 
-db_path = os.path.join(os.path.dirname(__file__), "data", "infoboard.db")
+# --- PATH SETUP ---
+current_dir = os.path.abspath(os.path.dirname(__file__))
+db_dir = os.path.join(current_dir, "data")
+db_path = os.path.join(db_dir, "infoboard.db")
+os.makedirs(db_dir, exist_ok=True)
 
-# Delete the database if it exists
 if os.path.exists(db_path):
     os.remove(db_path)
     print(f"🗑️ Deleted existing database at {db_path}")
 
-# Create fresh app and tables
 app = create_app()
 with app.app_context():
-    db.create_all()
-
-    # Create an admin user
-    admin = AdminUser(username="admin")
+    # --- ADMIN USER ---
+    admin = AdminUser(
+        username="admin",
+        email="afrey@gi-tec.net",
+        first_name="Admin",
+        last_name="User",
+        is_system_admin=True
+    )
     admin.set_password("admin")
     db.session.add(admin)
+    db.session.commit()
+    print("✅ Admin user created.")
 
-    # Create a board
-    board = Board(name="Main Board", identifier="main")
+    # --- BOARD ---
+    board = Board(
+        name="Default Board",
+        slug_identifier="default-board"
+    )
     db.session.add(board)
+    db.session.flush()
+    print("✅ Board created.")
 
-    # Create a page
-    page = Page(name="Welcome Page")
+    # --- PAGE ---
+    page = Page(
+        title="Default Page"
+    )
     db.session.add(page)
-    db.session.flush()  # so page.id is available
+    db.session.flush()
+    print("✅ Page created.")
 
-    # Assign page to board
-    pa = PageAssignment(board_id=board.id, page_id=page.id, order=0)
+    # --- PAGE ASSIGNMENT ---
+    pa = PageAssignment(
+        board_id=board.id,
+        page_id=page.id,
+        order=0
+    )
     db.session.add(pa)
+    db.session.commit()
+    print("✅ Page assigned to board.")
 
-    # Create a section
-    s1 = Section(type="text", content="🌈 Welcome to GitecBoard!", meta="intro")
+    # --- SECTION ---
+    s1 = Section(
+        title="Intro Section",
+        type="text",
+        content="🌈 Welcome to GitecBoard!"
+    )
     db.session.add(s1)
     db.session.flush()
+    print("✅ Section created.")
 
-    sa = SectionAssignment(page_id=page.id, section_id=s1.id, order=0)
+    # --- SECTION ASSIGNMENT ---
+    sa = SectionAssignment(
+        page_id=page.id,
+        section_id=s1.id,
+        order=0
+    )
     db.session.add(sa)
-
     db.session.commit()
-    print("✅ Seed data inserted successfully.")
+    print("✅ Section assigned to page.")
+
+print("🎉 All seed data inserted successfully.")

@@ -1,6 +1,6 @@
 ﻿{% extends 'base.html' %}
 {% block content %}
-<h1>📌 {{ board.identifier }}</h1>
+<h1>📌 {{ board.slug_identifier }}</h1>
 
 <div id="clock" class="clock">
   <div id="clock-time">--:--:--</div>
@@ -13,7 +13,7 @@
       <h2>{{ assignment.page.name }}</h2>
       <div class="sections">
         {% for sa in assignment.page.section_assignments|sort(attribute='order') %}
-          <div class="section section-{{ sa.section.type }}">
+          <div class="section section-fade">
             {% if sa.section.type == 'image' %}
               <img src="{{ sa.section.content }}" alt="Image" style="max-width: 100%; border-radius: 10px;" />
 

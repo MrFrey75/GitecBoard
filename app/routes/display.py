@@ -12,13 +12,13 @@ def index():
     # Redirect to the first available board
     board = Board.query.first()
     if board:
-        return redirect(f'/{board.identifier}')
+        return redirect(f'/{board.slug_identifier}')
     return "No boards found", 404
 
 
-@bp.route('/<identifier>')
-def show_board(identifier):
-    board = Board.query.filter_by(identifier=identifier).first_or_404()
+@bp.route('/<slug_identifier>')
+def show_board(slug_identifier):
+    board = Board.query.filter_by(slug_identifier=slug_identifier).first_or_404()
 
     # Filter section assignments by visibility (if start_time or end_time set)
     now = datetime.now()
