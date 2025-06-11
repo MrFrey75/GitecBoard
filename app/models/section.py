@@ -6,6 +6,7 @@ class Section(db.Model):
     __tablename__ = 'section'
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(20))
+    title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text)
     meta = db.Column(db.String(100), nullable=True)
     start_time = db.Column(db.DateTime, nullable=True)

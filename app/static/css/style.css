@@ -1,7 +1,5 @@
-body {
+.base-body {
   font-family: 'Segoe UI', sans-serif;
-  background: #1f1f2e;
-  color: #f5f5f5;
   margin: 0;
   padding: 0;
 }
@@ -48,8 +46,6 @@ h1, h2 {
 .section {
   margin-bottom: 1rem;
   padding: 1rem;
-  background: #3a3a4d;
-  border-left: 5px solid #78dce8;
   border-radius: 4px;
 }
 

@@ -5,7 +5,8 @@ from app.main import db
 class Page(db.Model):
     __tablename__ = 'page'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    slug_identifier = db.Column(db.String(100), nullable=False, unique=True)
     start_time = db.Column(db.DateTime, nullable=True)
     end_time = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())

@@ -1,11 +1,21 @@
 ﻿{% extends 'base.html' %}
 {% block content %}
-<h1>📌 {{ board.slug_identifier }}</h1>
 
-<div id="clock" class="clock">
-  <div id="clock-time">--:--:--</div>
-  <div id="clock-date">Loading date…</div>
+<div style="display: flex; justify-content: space-between; width: 100%;">
+  <div style="text-align: left;">
+    <h1>{{ board.title }}</h1>
+  </div>
+  <div style="text-align: right;">
+
+    <div id="clock" class="clock">
+      <div id="clock-time">--:--:--</div>
+      <div id="clock-date">Loading date…</div>
+    </div>
+
+  </div>
 </div>
+
+
 
 <div id="carousel">
   {% for assignment in board.page_assignments|sort(attribute='order') %}

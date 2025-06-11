@@ -5,7 +5,7 @@ from app.main import db
 class Board(db.Model):
     __tablename__ = 'board'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     slug_identifier = db.Column(db.String(100), nullable=False, unique=True)
     is_deleted = db.Column(db.Boolean, default=False)
