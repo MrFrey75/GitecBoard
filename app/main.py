@@ -49,6 +49,12 @@ def create_app():
     except ImportError:
         pass  # Fail silently if the blueprint isn't available yet
 
+    try:
+        from app.routes.admin import bp as admin_bp
+        app.register_blueprint(admin_bp)
+    except ImportError:
+        pass
+
     # -------------------------------------------
     # Database Setup
     # -------------------------------------------

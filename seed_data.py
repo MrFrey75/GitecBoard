@@ -1,9 +1,10 @@
 ﻿import os
 from app.main import create_app, db
 from app.models.board import Board, PageAssignment
-from app.models.page import Page
-from app.models.section import Section, SectionAssignment, MediaAsset
-from app.models.admin import AdminUser, AppSetting
+from app.models.page import Page, SectionAssignment
+from app.models.section import Section
+from app.models.admin import AdminUser
+from app.models.generics import MediaAsset, AppSetting
 
 # --- PATH SETUP ---
 current_dir = os.path.abspath(os.path.dirname(__file__))

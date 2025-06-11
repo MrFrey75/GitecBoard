@@ -1,0 +1,59 @@
+﻿<!-- app/templates/admin/admin_base.html -->
+{% extends 'admin_base.html' %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+<div class="tabs">
+  <button onclick="showTab('boards')">Boards</button>
+  <button onclick="showTab('pages')">Pages</button>
+  <button onclick="showTab('sections')">Sections</button>
+</div>
+<hr>
+<div id="boards" class="tab-content">
+  <h2>Boards</h2>
+  <ul>
+    {% for board in boards %}
+      <li>
+        <b>{{ board.title }}</b> ({{ board.slug_identifier }})
+        <!-- Add edit/delete buttons as needed -->
+      </li>
+    {% else %}
+      <li>No boards found.</li>
+    {% endfor %}
+  </ul>
+</div>
+<div id="pages" class="tab-content" style="display:none">
+  <h2>Pages</h2>
+  <ul>
+    {% for page in pages %}
+      <li>
+        <b>{{ page.title }}</b> ({{ page.slug_identifier }})
+        <!-- Add edit/delete buttons as needed -->
+      </li>
+    {% else %}
+      <li>No pages found.</li>
+    {% endfor %}
+  </ul>
+</div>
+<div id="sections" class="tab-content" style="display:none">
+  <h2>Sections</h2>
+  <ul>
+    {% for section in sections %}
+      <li>
+        <b>{{ section.title }}</b> ({{ section.type or "N/A" }})
+        <!-- Add edit/delete buttons as needed -->
+      </li>
+    {% else %}
+      <li>No sections found.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script>
+function showTab(tab) {
+  ['boards', 'pages', 'sections'].forEach(function(t) {
+    document.getElementById(t).style.display = (t === tab) ? '' : 'none';
+  });
+}
+</script>
+{% endblock %}

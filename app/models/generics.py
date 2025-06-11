@@ -1,4 +1,4 @@
-﻿# app/models/models.py
+﻿# app/models/generics.py
 
 from app.main import db
 
