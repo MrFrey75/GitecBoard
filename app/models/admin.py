@@ -25,14 +25,3 @@ class AdminUser(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-
-class AppSetting(db.Model):
-    __tablename__ = 'app_settings'
-    id = db.Column(db.Integer, primary_key=True)
-    key = db.Column(db.String(50), unique=True, nullable=False)
-    value = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255), nullable=True)
-    created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
-
-    def __repr__(self):
-        return f"<AppSettings {self.key}: {self.value}>"

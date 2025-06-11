@@ -1,6 +1,7 @@
 # app/main.py
 
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import os
 import re
@@ -48,12 +49,6 @@ def create_app():
     except ImportError:
         pass  # Fail silently if the blueprint isn't available yet
 
-    try:
-        from app.routes.admin import bp as admin_bp
-        app.register_blueprint(admin_bp)
-    except ImportError:
-        pass
-
     # -------------------------------------------
     # Database Setup
     # -------------------------------------------
@@ -77,5 +72,7 @@ def create_app():
     def extract_youtube_id(url):
         match = re.search(r"(?:v=|\/)([0-9A-Za-z_-]{11})", url)
         return match.group(1) if match else url
+
+    CORS(app)  # allow all for now; restrict in prod!
 
     return app
